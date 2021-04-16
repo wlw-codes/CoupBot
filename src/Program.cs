@@ -11,21 +11,21 @@ using System.Threading.Tasks;
 
 namespace CoupBot
 {
-    class Program
+    internal class Program
     {
-        static void Main() => new Program().StartAsync().GetAwaiter().GetResult();
+        private static void Main() => StartAsync().GetAwaiter().GetResult();
 
-        private async Task StartAsync()
+        private static async Task StartAsync()
         {
             Credentials credentials;
 
             try
             {
-                credentials = JsonConvert.DeserializeObject<Credentials>(File.ReadAllText(AppContext.BaseDirectory.Substring(0, AppContext.BaseDirectory.IndexOf("src")) + "src/Credentials.json"));
+                credentials = JsonConvert.DeserializeObject<Credentials>(await File.ReadAllTextAsync(AppContext.BaseDirectory.Substring(0, AppContext.BaseDirectory.IndexOf("src")) + "src/Credentials.json"));
             }
             catch (IOException exception)
             {
-                Console.WriteLine("The Credentials file was broken or missing!\n\n" + exception.ToString());
+                Console.WriteLine("The Credentials file was broken or missing!\n\n" + exception);
                 return;
             }
             
