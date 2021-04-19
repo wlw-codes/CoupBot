@@ -39,12 +39,12 @@ namespace CoupBot.Common
 
                 if (Context.Channel != userDm)
                 {
-                    await ReplyAsync("please check your DMs.");
+                    await Context.Message.AddReactionAsync(new Emoji("📬"));
                 }
             }
             catch
             {
-                await ReplyErrorAsync("Please go into User Settings > Privacy & Safety > Allow direct messages from server members.");
+                await ReplyErrorAsync("Please go into User Settings > Privacy & Safety > Allow direct messages from server members (apply to all members).");
             }
         }
     }

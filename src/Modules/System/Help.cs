@@ -6,9 +6,8 @@ namespace CoupBot.Modules.System
 {
     public partial class System
     {
-        [Command("Help")]
-        [Alias("info")]
-        [Summary("View the basic information regarding this bot.")]
+        [Command("help")]
+        [Summary("View the help message.")]
         public async Task Help()
         {
             await DmAsync(Context.User, Configuration.HelpMessage);

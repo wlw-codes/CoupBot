@@ -2,11 +2,17 @@
 {
     public static class Configuration
     {
-        public static readonly string Prefix = "$",
-            Version = "0.1.0",
-            Game = $"{Prefix}help | v{Version}",
+        public const string Prefix = "$",
+            Version = "0.2.0",
             InviteLink =
                 "https://discord.com/oauth2/authorize?client_id=832358656569638997&scope=bot&permissions=268520528",
-            HelpMessage = $"Here's some help... {InviteLink}";
+            RepositoryUrl = "https://github.com/wlw-codes/CoupBot",
+            SupportServerUrl = "https://discord.gg/qN4ZYd6AYZ",
+            OwnerTag = "Lumite_#0187";
+
+        public static readonly string Game = $"{Prefix}help | v{Version}",
+            HelpMessage = $"To view all available commands, please use `{Prefix}commands`.\n" +
+                          $"To join the Discord server, please use `{Prefix}discord` and ping **{OwnerTag}**.\n" +
+                          $"To get technical assistance, please use `{Prefix}git` and fill out an issue form.\n\n";
     }
 }

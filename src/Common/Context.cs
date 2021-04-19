@@ -11,7 +11,7 @@ namespace CoupBot.Common
 {
     public class Context : SocketCommandContext
     {
-        public User DbUser { get; private set; }
+        public User DbUser { get; set; }
         public Guild DbGuild { get; private set; }
         public IGuildUser GuildUser { get; }
 

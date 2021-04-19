@@ -48,7 +48,7 @@ namespace CoupBot.Services
                 ServiceProvider = services.BuildServiceProvider();
         }
 
-        public IMongoDatabase ConfigureDatabase()
+        private IMongoDatabase ConfigureDatabase()
         {
             var mongoClient = new MongoClient(_credentials.DatabaseConnectionString);
 

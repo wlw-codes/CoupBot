@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace CoupBot
 {
-    internal class Program
+    internal static class Program
     {
         private static void Main() => StartAsync().GetAwaiter().GetResult();
 
@@ -21,11 +21,17 @@ namespace CoupBot
 
             try
             {
-                credentials = JsonConvert.DeserializeObject<Credentials>(await File.ReadAllTextAsync(AppContext.BaseDirectory.Substring(0, AppContext.BaseDirectory.IndexOf("src")) + "src/Credentials.json"));
+                credentials = JsonConvert.DeserializeObject<Credentials>(await File.ReadAllTextAsync(AppContext.BaseDirectory + "../../../Credentials.json"));
             }
-            catch (IOException exception)
+            catch
             {
-                Console.WriteLine("The Credentials file was broken or missing!\n\n" + exception);
+                Console.WriteLine("The credentials file is missing!");
+                return;
+            }
+
+            if (credentials == null)
+            {
+                Console.WriteLine("The credentials file is missing data!");
                 return;
             }
             
