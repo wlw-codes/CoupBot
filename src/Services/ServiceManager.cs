@@ -7,6 +7,7 @@ using System;
 using CoupBot.Database.Models;
 using CoupBot.Database.Repositories;
 using CoupBot.Events;
+using Discord.Addons.Interactive;
 
 namespace CoupBot.Services
 {
@@ -39,11 +40,13 @@ namespace CoupBot.Services
                 .AddSingleton<UserRepository>()
                 // Events
                 .AddSingleton<MessageReceived>()
-                .AddSingleton<Ready>();
+                .AddSingleton<Ready>()
                 //.AddSingleton<UserJoined>()
                 //.AddSingleton<UserLeft>()
                 // Handlers
                 //.AddSingleton<ErrorHandler>()
+                // Services
+                .AddSingleton<InteractiveService>();
 
                 ServiceProvider = services.BuildServiceProvider();
         }
@@ -60,7 +63,7 @@ namespace CoupBot.Services
             new MessageReceived(ServiceProvider, _commandService);
             new Ready(_client);
             //new UserJoined(_client, ServiceProvider);
-            //.AddSingleton<UserLeft>()
+            //new UserLeft(params);
         }
     }
 }

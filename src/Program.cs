@@ -36,7 +36,10 @@ namespace CoupBot
             }
             
             var client = new DiscordSocketClient();
-            var commandService = new CommandService();
+            var commandService = new CommandService(new CommandServiceConfig()
+            {
+                DefaultRunMode = RunMode.Async
+            });
             var serviceManager = new ServiceManager(client, commandService, credentials);
             var serviceProvider = serviceManager.ServiceProvider;
 

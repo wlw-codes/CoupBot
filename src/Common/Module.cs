@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Discord;
+using Discord.Addons.Interactive;
 using Discord.Commands;
+using Discord.Rest;
 
 namespace CoupBot.Common
 {
@@ -19,9 +21,9 @@ namespace CoupBot.Common
             await Context.Channel.SendMessageAsync(message);
         }
 
-        public async Task ReplyAsync(string message)
+        public async Task<RestUserMessage> ReplyAsync(string message)
         {
-            await Context.Channel.SendMessageAsync(Context.User.Mention + $", {message}");
+            return await Context.Channel.SendMessageAsync(Context.User.Mention + $", {message}");
         }
 
         public async Task ReplyErrorAsync(string message)
