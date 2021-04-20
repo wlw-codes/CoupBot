@@ -11,23 +11,26 @@ namespace CoupBot.Modules.Coup
         [Summary("Initiate a coup upon the server owner.")]
         public async Task CallCoup()
         {
-            var confirmationMessage = await ReplyAsync($"are you sure you wish to call a coup upon **{Context.Guild.Owner.Username}**? Reply with \"yes\" to continue, or anything else to cancel. You may also ignore this message for {Configuration.CoupAttemptCancelTime} seconds.");
+            if (Context.DbGuild.CoupActive)
+            {
+                await ReplyErrorAsync("there is already a coup active in this server. Please wait <time left> until it ends.");
+                return;
+            }
+            
+            var confirmationMessage = await ReplyAsync($"are you sure you wish to call a coup upon **{Context.Guild.Owner.Username}**?\n\nReply with \"yes\" to continue, or anything else to cancel. You may also ignore this message for {Configuration.CoupAttemptCancelTime} seconds.");
             var response = await _interactiveService.NextMessageAsync(Context, timeout: TimeSpan.FromSeconds(Configuration.CoupAttemptCancelTime));
 
-            if (response != null)
+            if (response is not { Content: "yes"} )
             {
-                switch (response.Content)
-                {
-                    case "yes":
-                        await confirmationMessage.ModifyAsync(x => x.Content = "Coup initiated.");
-                        await response.DeleteAsync();
-                        break;
-                    default:
-                        await confirmationMessage.ModifyAsync(x =>
-                            x.Content = "You have decided not to initiate the coup attempt.");
-                        await response.DeleteAsync();
-                        break;
-                }
+                await confirmationMessage.ModifyAsync(x =>
+                    x.Content = "You have decided not to initiate the coup attempt.");
+                
+                await response.DeleteAsync();
+            }
+            else
+            {
+                await confirmationMessage.ModifyAsync(x => x.Content = "Coup initiated.");
+                await response.DeleteAsync();
             }
         }
     }

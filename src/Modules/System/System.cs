@@ -10,7 +10,7 @@ namespace CoupBot.Modules.System
     {
         private readonly CommandService _commandService;
 
-        public System(CommandService commandService, IServiceProvider serviceProvider) : base(serviceProvider)
+        public System(CommandService commandService)
         {
             _commandService = commandService;
         }

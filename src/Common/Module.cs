@@ -9,29 +9,22 @@ namespace CoupBot.Common
 {
     public abstract class Module : ModuleBase<Context>
     {
-        private readonly IServiceProvider _serviceProvider;
-
-        public Module(IServiceProvider serviceProvider)
+        protected async Task<RestUserMessage> SendAsync(string message)
         {
-            _serviceProvider = serviceProvider;
+            return await Context.Channel.SendMessageAsync(message);
         }
 
-        public async Task SendAsync(string message)
-        {
-            await Context.Channel.SendMessageAsync(message);
-        }
-
-        public async Task<RestUserMessage> ReplyAsync(string message)
+        protected async Task<RestUserMessage> ReplyAsync(string message)
         {
             return await Context.Channel.SendMessageAsync(Context.User.Mention + $", {message}");
         }
 
-        public async Task ReplyErrorAsync(string message)
+        protected async Task<RestUserMessage> ReplyErrorAsync(string message)
         {
-            await Context.Channel.SendMessageAsync("**Command error!**" + $"\n\n{message}");
+            return await Context.Channel.SendMessageAsync("**Command error!**" + $"\n\n{message}");
         }
 
-        public async Task DmAsync(IUser user, string message)
+        protected async Task DmAsync(IUser user, string message)
         {
             var userDm = await user.GetOrCreateDMChannelAsync();
 

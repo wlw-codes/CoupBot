@@ -10,15 +10,11 @@ namespace CoupBot.Modules.Coup
     [Summary("Commands pertaining to the coup functionality.")]
     public partial class Coup : Module
     {
-        private readonly CommandService _commandService;
-        private readonly IServiceProvider _serviceProvider;
         private readonly InteractiveService _interactiveService;
 
-        public Coup(CommandService commandService, IServiceProvider serviceProvider) : base(serviceProvider)
+        public Coup(IServiceProvider serviceProvider)
         {
-            _commandService = commandService;
-            _serviceProvider = serviceProvider;
-            _interactiveService = _serviceProvider.GetRequiredService<InteractiveService>();
+            _interactiveService = serviceProvider.GetRequiredService<InteractiveService>();
         }
     }
 }

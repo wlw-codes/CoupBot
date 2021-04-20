@@ -12,18 +12,16 @@ namespace CoupBot.Common
     public class Context : SocketCommandContext
     {
         public User DbUser { get; set; }
-        public Guild DbGuild { get; private set; }
+        public Guild DbGuild { get; set; }
         public IGuildUser GuildUser { get; }
 
-        private readonly IServiceProvider _serviceProvider;
         private readonly UserRepository _userRepo;
         private readonly GuildRepository _guildRepo;
 
         public Context(SocketUserMessage msg, IServiceProvider serviceProvider, DiscordSocketClient client = null) : base(client, msg)
         {
-            _serviceProvider = serviceProvider;
-            _userRepo = _serviceProvider.GetService<UserRepository>();
-            _guildRepo = _serviceProvider.GetService<GuildRepository>();
+            _userRepo = serviceProvider.GetService<UserRepository>();
+            _guildRepo = serviceProvider.GetService<GuildRepository>();
 
             GuildUser = User as IGuildUser;
         }
