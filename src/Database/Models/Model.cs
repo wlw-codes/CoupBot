@@ -3,7 +3,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace CoupBot.Database.Models
 {
-    public abstract partial class Model
+    public abstract class Model
     {
         [BsonId]
         public ObjectId Id { get; set; }

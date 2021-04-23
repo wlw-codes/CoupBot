@@ -30,12 +30,12 @@ namespace CoupBot.Events
             if (socketMessage is not SocketUserMessage {Source: MessageSource.User} message) return;
 
             var argPos = 0;
-            var context = new Context(message, _serviceProvider, _client);
+            var context = new Context(_client, message, _serviceProvider);
 
-            if (message.Channel is not IDMChannel)
+            await context.InitializeAsync();
+            
+            if (context.Channel is not IDMChannel)
             {
-                await context.InitializeAsync();
-
                 if (!message.HasStringPrefix(context.DbGuild.Prefix, ref argPos)) return;
             }
             else

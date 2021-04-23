@@ -19,7 +19,6 @@ namespace CoupBot.Database.Repositories
             await InsertAsync(createdGuild);
 
             return createdGuild;
-
         }
     }
 }

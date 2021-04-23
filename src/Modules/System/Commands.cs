@@ -24,7 +24,7 @@ namespace CoupBot.Modules.System
                 response += "\n\n";
             }
 
-            await SendAsync(response);
+            await Context.SendAsync(response);
         }
     }
 }

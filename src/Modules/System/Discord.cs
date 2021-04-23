@@ -10,7 +10,7 @@ namespace CoupBot.Modules.System
         [Summary("View the link for the Discord server.")]
         public async Task Discord()
         {
-            await DmAsync(Context.User, Configuration.SupportServerUrl);
+            await Context.DmAsync(Configuration.SupportServerUrl);
         }
     }
 }

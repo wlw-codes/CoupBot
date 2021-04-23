@@ -1,8 +1,10 @@
-﻿using CoupBot.Common;
+﻿using System;
+using CoupBot.Common;
+using CoupBot.Common.Structures;
 
 namespace CoupBot.Database.Models
 {
-    public partial class Guild : Model
+    public class Guild : Model
     {
         public Guild(ulong guildId)
         {
@@ -15,7 +17,11 @@ namespace CoupBot.Database.Models
         // Text
         public string Prefix { get; set; } = Configuration.Prefix;
 
-        // Bool
-        public bool CoupActive { get; set; } = false;
+        // Coup
+        public Coup CurrentCoup { get; set; } = null;
+        
+        // Timespan
+        public TimeSpan CoupCampaignTime { get; set; } =
+            TimeSpan.FromHours(Configuration.DefaultCoupCampaignTimeInHours);
     }
 }

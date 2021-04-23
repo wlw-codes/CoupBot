@@ -22,7 +22,7 @@ namespace CoupBot.Modules.System
 
             if (search == null)
             {
-                await ReplyErrorAsync($"The command `{commandName}` does not exist.");
+                await Context.ReplyAsync($"the command `{commandName}` does not exist.");
                 return;
             }
 
@@ -43,7 +43,7 @@ namespace CoupBot.Modules.System
             response = response.Remove(response.Length - 1);
             response += $"`: {search.Summary}";
             
-            await SendAsync(response);
+            await Context.SendAsync(response);
         }
     }
 }

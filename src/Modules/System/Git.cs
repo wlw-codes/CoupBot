@@ -10,7 +10,7 @@ namespace CoupBot.Modules.System
         [Summary("View the link for the Git repository.")]
         public async Task Git()
         {
-            await DmAsync(Context.User, Configuration.RepositoryUrl);
+            await Context.DmAsync(Configuration.RepositoryUrl);
         }
     }
 }

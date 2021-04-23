@@ -10,7 +10,7 @@ namespace CoupBot.Modules.System
         [Summary("View the link for inviting the bot.")]
         public async Task Invite()
         {
-            await DmAsync(Context.User, Configuration.InviteLink);
+            await Context.DmAsync(Configuration.InviteLink);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace CoupBot.Database.Models
 {
-    public partial class User : Model
+    public class User : Model
     {
         public User(ulong userId, ulong guildId)
         {

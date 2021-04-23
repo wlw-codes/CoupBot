@@ -10,7 +10,7 @@ namespace CoupBot.Modules.System
         [Summary("View the help message.")]
         public async Task Help()
         {
-            await DmAsync(Context.User, Configuration.HelpMessage);
+            await Context.DmAsync(Configuration.HelpMessage);
         }
     }
 }
