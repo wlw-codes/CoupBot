@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using CoupBot.Common;
 using CoupBot.Common.Structures;
 
@@ -17,11 +18,13 @@ namespace CoupBot.Database.Models
         // Text
         public string Prefix { get; set; } = Configuration.Prefix;
 
-        // Coup
-        public Coup CurrentCoup { get; set; } = null;
-        
         // Timespan
         public TimeSpan CoupCampaignTime { get; set; } =
             TimeSpan.FromHours(Configuration.DefaultCoupCampaignTimeInHours);
+
+        public TimeSpan CoupCooldown { get; set; } = TimeSpan.FromHours(Configuration.DefaultCoupCooldownInHours);
+
+        // List
+        public List<Coup> Coups { get; set; } = new List<Coup>();
     }
 }
