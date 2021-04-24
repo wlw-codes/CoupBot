@@ -19,6 +19,7 @@ namespace CoupBot.Common
         public static readonly string Game = $"{Prefix}help | v{Version}",
             HelpMessage = $"To view all available commands, please use `{Prefix}commands`.\n" +
                           $"To join the Discord server, please use `{Prefix}discord` and ping **{OwnerTag}**.\n" +
-                          $"To get technical assistance, please use `{Prefix}git` and fill out an issue form.\n\n";
+                          $"To get technical assistance, please use `{Prefix}git` and fill out an issue form.\n\n" +
+                          $"To get some useful information about what this bot does, please use `{Prefix}readme`.";
     }
 }
