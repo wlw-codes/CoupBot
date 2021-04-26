@@ -4,7 +4,7 @@ namespace CoupBot.Common.Structures
 {
     public class Coup
     {
-        public ulong Challenger { get; set; }
+        public ulong ChallengerId { get; set; }
         
         public DateTime TimeInitiated { get; set; }
         
