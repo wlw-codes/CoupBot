@@ -1,11 +1,9 @@
-﻿using System;
-
-namespace CoupBot.Common
+﻿namespace CoupBot.Common
 {
     public static class Configuration
     {
         public const string Prefix = "$",
-            Version = "0.7.0",
+            Version = "0.8.1",
             InviteLink =
                 "https://discord.com/oauth2/authorize?client_id=832358656569638997&scope=bot&permissions=268520528",
             RepositoryUrl = "https://github.com/wlw-codes/CoupBot",

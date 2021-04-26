@@ -21,15 +21,16 @@ namespace CoupBot
 
             try
             {
-                credentials = JsonConvert.DeserializeObject<Credentials>(await File.ReadAllTextAsync(AppContext.BaseDirectory + "../../../Credentials.json"));
+                credentials = JsonConvert.DeserializeObject<Credentials>(
+                    await File.ReadAllTextAsync(AppContext.BaseDirectory + "../../../Credentials.json"));
             }
-            catch
+            catch // catch exception where file does not exist
             {
                 Console.WriteLine("The credentials file is missing!");
                 return;
             }
 
-            if (credentials == null)
+            if (credentials == null) // if the file exists but is empty
             {
                 Console.WriteLine("The credentials file is missing data!");
                 return;
@@ -48,7 +49,7 @@ namespace CoupBot
             await commandService.AddModulesAsync(Assembly.GetEntryAssembly(), serviceProvider);
             await client.LoginAsync(TokenType.Bot, credentials.Token);
             await client.StartAsync();
-            await Task.Delay(-1);
+            await Task.Delay(-1); // delay infinitely so it doesn't end
         }
     }
 }

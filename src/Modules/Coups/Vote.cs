@@ -10,9 +10,10 @@ namespace CoupBot.Modules.Coups
     {
         [Command("vote")]
         [Summary("Formalise your support for either candidate in an ongoing coup.")]
+        [Remarks("Leviticus#2026")]
         public async Task Vote(IGuildUser user = null)
         {
-            var coupSearch = Context.DbGuild.Coups.OrderBy(x => x.TimeInitiated).FirstOrDefault();
+            var coupSearch = Context.DbGuild.Coups.OrderBy(x => x.TimeInitiated).FirstOrDefault(); // grab the latest coup in the server, or null
             
             if (coupSearch == null) // if the guild has no historic coups
             {

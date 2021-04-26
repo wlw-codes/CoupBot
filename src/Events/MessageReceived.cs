@@ -27,25 +27,25 @@ namespace CoupBot.Events
 
         private async Task HandleMessageAsync(SocketMessage socketMessage)
         {
-            if (socketMessage is not SocketUserMessage {Source: MessageSource.User} message) return;
+            if (socketMessage is not SocketUserMessage {Source: MessageSource.User} message) return; // if the message is not from a user
 
             var argPos = 0;
-            var context = new Context(_client, message, _serviceProvider);
+            var context = new Context(_client, message, _serviceProvider); // register new context
 
-            await context.InitializeAsync();
+            await context.InitialiseAsync(); // initalise the db entities
             
-            if (context.Channel is not IDMChannel)
+            if (context.Channel is not IDMChannel) // if the channel is in a guild
             {
-                if (!message.HasStringPrefix(context.DbGuild.Prefix, ref argPos)) return;
+                if (!message.HasStringPrefix(context.DbGuild.Prefix, ref argPos)) return; // check the message for the guild's prefix
             }
-            else
+            else // if the channel is a DM
             {
-                if (!message.HasStringPrefix(Configuration.Prefix, ref argPos)) return;
+                if (!message.HasStringPrefix(Configuration.Prefix, ref argPos)) return; // check the message for the config file's prefix
             }
 
             var result = await _commandService.ExecuteAsync(context, argPos, _serviceProvider);
 
-            //if (!result.IsSuccess) await _errorHandler.HandleCommandErrorAsync(result, context);
+            //if (!result.IsSuccess) await _errorHandler.HandleCommandErrorAsync(result, context); // error handling to be implemented
         }
     }
 }

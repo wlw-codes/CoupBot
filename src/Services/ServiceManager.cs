@@ -48,7 +48,7 @@ namespace CoupBot.Services
                 // Services
                 .AddSingleton<InteractiveService>();
 
-                ServiceProvider = services.BuildServiceProvider();
+            ServiceProvider = services.BuildServiceProvider();
         }
 
         private IMongoDatabase ConfigureDatabase()

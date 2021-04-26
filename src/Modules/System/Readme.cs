@@ -11,8 +11,10 @@ namespace CoupBot.Modules.System
         [Summary("View the readme for this bot.")]
         public async Task Readme()
         {
-            var readmeFile = await File.ReadAllTextAsync(AppContext.BaseDirectory + "../../../../README.md");
-            
+            var readmeFile =
+                await File.ReadAllTextAsync(AppContext.BaseDirectory +
+                                            "../../../../README.md"); // read the readme as string
+
             await Context.DmAsync(readmeFile);
         }
     }

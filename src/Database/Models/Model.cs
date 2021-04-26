@@ -5,7 +5,6 @@ namespace CoupBot.Database.Models
 {
     public abstract class Model
     {
-        [BsonId]
-        public ObjectId Id { get; set; }
+        [BsonId] public ObjectId Id { get; set; }
     }
 }

@@ -37,7 +37,7 @@ namespace CoupBot.Common
             _guildRepo = serviceProvider.GetService<GuildRepository>();
         }
 
-        public async Task InitializeAsync()
+        public async Task InitialiseAsync()
         {
             if (Guild != null)
             {
@@ -54,20 +54,20 @@ namespace CoupBot.Common
 
         public async Task<IUserMessage> DmAsync(string text, IUser user = null)
         {
-            user ??= User;
+            user ??= User; // if the user parameter is null, user becomes the user who ran the command
                 
-            var userDm = await user.GetOrCreateDMChannelAsync();
+            var userDm = await user.GetOrCreateDMChannelAsync(); // open the DM with them
             
             try
             {
                 await userDm.SendMessageAsync(text);
 
-                if (Channel != userDm)
+                if (Channel != userDm) // if the channel the command was ran in is not the DM channel
                 {
                     return await ReplyAsync("check your DMs.");
                 }
             }
-            catch
+            catch // catch exception where the user's privacy settings block messages from bots
             {
                 return await ReplyAsync("please go into User Settings > Privacy & Safety > Allow direct messages from server members (apply to all members).");
             }
