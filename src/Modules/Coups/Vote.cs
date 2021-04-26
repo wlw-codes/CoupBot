@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
+using CoupBot.Common.Extensions;
 
 namespace CoupBot.Modules.Coups
 {
@@ -11,7 +12,7 @@ namespace CoupBot.Modules.Coups
         [Command("vote")]
         [Summary("Formalise your support for either candidate in an ongoing coup.")]
         [Remarks("Leviticus#2026")]
-        public async Task Vote(IGuildUser user = null)
+        public async Task Vote([Remainder] IGuildUser user = null)
         {
             var coupSearch = Context.DbGuild.Coups.OrderBy(x => x.TimeInitiated).FirstOrDefault(); // grab the latest coup in the server, or null
             
@@ -72,15 +73,7 @@ namespace CoupBot.Modules.Coups
                 return;
             }
 
-            var votesToGive = 0;
-
-            foreach (var textChannel in await Context.Guild.GetTextChannelsAsync()) // for every text channel in the server
-            {
-                var totalMessages = await textChannel.GetMessagesAsync(int.MaxValue).FlattenAsync(); // get all messages in that channel
-                var messageCountFromUser = totalMessages.Where(x => x.Author.Id == Context.User.Id).Count(); // get number of messages from user
-
-                votesToGive += messageCountFromUser; // add that number of messages to their total votes
-            }
+            var votesToGive = await Context.GuildUser.GetMessageCount();
 
             if (user == challenger)
             {

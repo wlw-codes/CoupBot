@@ -49,7 +49,7 @@ namespace CoupBot
             await commandService.AddModulesAsync(Assembly.GetEntryAssembly(), serviceProvider);
             await client.LoginAsync(TokenType.Bot, credentials.Token);
             await client.StartAsync();
-            await Task.Delay(-1); // delay infinitely so it doesn't end
+            await Task.Delay(-1); // delay infinitely so the task doesn't end
         }
     }
 }

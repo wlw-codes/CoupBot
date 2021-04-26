@@ -7,6 +7,7 @@ namespace CoupBot.Modules.Coups
 {
     [Name("Coup")]
     [Summary("Commands pertaining to the coup functionality.")]
+    [RequireContext(ContextType.Guild)]
     public partial class Coups : ModuleBase<Context>
     {
         private readonly InteractiveService _interactiveService;

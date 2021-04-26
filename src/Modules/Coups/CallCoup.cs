@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using CoupBot.Common;
+using CoupBot.Common.Extensions;
 using CoupBot.Common.Structures;
 using Discord;
 using Discord.Commands;
@@ -65,13 +66,7 @@ namespace CoupBot.Modules.Coups
                 return;
             }
 
-            var totalMessages = 0;
-
-            foreach (var textChannel in await Context.Guild.GetTextChannelsAsync()) // for every text channel in the server
-            {
-                var messageCount = await textChannel.GetMessagesAsync(int.MaxValue).FlattenAsync(); // get all messages in that channel
-                totalMessages += messageCount.Count(); // add the number of messages to the total counter
-            }
+            var totalMessages = await Context.Guild.GetMessageCount();
 
             await _guildRepository.ModifyAsync(Context.DbGuild, x => x.Coups.Add(new Coup
             {
