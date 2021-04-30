@@ -3,7 +3,7 @@
     public static class Configuration
     {
         public const string Prefix = "$",
-            Version = "0.8.1",
+            Version = "0.9.0",
             InviteLink =
                 "https://discord.com/oauth2/authorize?client_id=832358656569638997&scope=bot&permissions=268520528",
             RepositoryUrl = "https://github.com/wlw-codes/CoupBot",

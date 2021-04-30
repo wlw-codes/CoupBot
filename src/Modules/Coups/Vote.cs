@@ -1,9 +1,10 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using CoupBot.Common.Extensions.Database;
 using Discord;
 using Discord.Commands;
-using CoupBot.Common.Extensions;
+using CoupBot.Common.Extensions.Discord;
 
 namespace CoupBot.Modules.Coups
 {
@@ -77,12 +78,12 @@ namespace CoupBot.Modules.Coups
 
             if (user == challenger)
             {
-                await _guildRepository.ModifyAsync(Context.DbGuild,
+                await _dbGuilds.UpsertGuildAsync(Context.DbGuild.GuildId,
                     x => x.Coups.OrderBy(y => y.TimeInitiated).First().VotesForChallenger += votesToGive); // add votes to challenger
             }
             else
             {
-                await _guildRepository.ModifyAsync(Context.DbGuild,
+                await _dbGuilds.UpsertGuildAsync(Context.DbGuild.GuildId,
                     x => x.Coups.OrderBy(y => y.TimeInitiated).First().VotesForRuler += votesToGive); // add votes to ruler
             }
 

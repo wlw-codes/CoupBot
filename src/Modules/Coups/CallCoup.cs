@@ -2,9 +2,9 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using CoupBot.Common;
-using CoupBot.Common.Extensions;
+using CoupBot.Common.Extensions.Database;
+using CoupBot.Common.Extensions.Discord;
 using CoupBot.Common.Structures;
-using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
 
@@ -68,7 +68,7 @@ namespace CoupBot.Modules.Coups
 
             var totalMessages = await Context.Guild.GetMessageCount();
 
-            await _guildRepository.ModifyAsync(Context.DbGuild, x => x.Coups.Add(new Coup
+            await _dbGuilds.UpsertGuildAsync(Context.DbGuild.GuildId, x => x.Coups.Add(new Coup
             {
                 ChallengerId = Context.User.Id,
                 TimeInitiated = DateTime.Now,

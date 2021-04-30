@@ -1,7 +1,8 @@
 ﻿using CoupBot.Common;
-using CoupBot.Database.Repositories;
+using CoupBot.Database.Models;
 using Discord.Addons.Interactive;
 using Discord.Commands;
+using MongoDB.Driver;
 
 namespace CoupBot.Modules.Coups
 {
@@ -11,12 +12,12 @@ namespace CoupBot.Modules.Coups
     public partial class Coups : ModuleBase<Context>
     {
         private readonly InteractiveService _interactiveService;
-        private readonly GuildRepository _guildRepository;
+        private readonly IMongoCollection<Guild> _dbGuilds;
 
-        public Coups(InteractiveService interactiveService, GuildRepository guildRepository)
+        public Coups(InteractiveService interactiveService, IMongoCollection<Guild> dbGuilds)
         {
             _interactiveService = interactiveService;
-            _guildRepository = guildRepository;
+            _dbGuilds = dbGuilds;
         }
     }
 }

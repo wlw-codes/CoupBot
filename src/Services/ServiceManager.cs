@@ -5,7 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
 using System;
 using CoupBot.Database.Models;
-using CoupBot.Database.Repositories;
 using CoupBot.Events;
 using Discord.Addons.Interactive;
 
@@ -35,9 +34,6 @@ namespace CoupBot.Services
                 // DB Models
                 .AddSingleton(database.GetCollection<Guild>("guilds"))
                 .AddSingleton(database.GetCollection<User>("users"))
-                // DB Repositories
-                .AddSingleton<GuildRepository>()
-                .AddSingleton<UserRepository>()
                 // Events
                 .AddSingleton<MessageReceived>()
                 .AddSingleton<Ready>()

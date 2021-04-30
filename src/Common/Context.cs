@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Threading.Tasks;
+using CoupBot.Common.Extensions.Database;
 using CoupBot.Database.Models;
-using CoupBot.Database.Repositories;
 using Discord;
 using Discord.Commands;
 using Microsoft.Extensions.DependencyInjection;
+using MongoDB.Driver;
 
 namespace CoupBot.Common
 {
     public class Context : ICommandContext
     {
+        private readonly IMongoCollection<Guild> _dbGuilds;
+        private readonly IMongoCollection<User> _dbUsers;
+
         public User DbUser { get; private set; }
         public Guild DbGuild { get; private set; }
         public IDiscordClient Client { get; }
@@ -20,11 +24,11 @@ namespace CoupBot.Common
         public IGuildUser GuildUser { get; }
         public IUserMessage Message { get; }
 
-        private readonly UserRepository _userRepo;
-        private readonly GuildRepository _guildRepo;
-
         public Context(IDiscordClient client, IUserMessage message, IServiceProvider serviceProvider)
         {
+            _dbGuilds = serviceProvider.GetRequiredService<IMongoCollection<Guild>>();
+            _dbUsers = serviceProvider.GetRequiredService<IMongoCollection<User>>();
+
             Client = client;
             Message = message;
             Channel = message.Channel;
@@ -32,17 +36,14 @@ namespace CoupBot.Common
             Guild = TextChannel?.Guild;
             User = message.Author;
             GuildUser = User as IGuildUser;
-            
-            _userRepo = serviceProvider.GetService<UserRepository>();
-            _guildRepo = serviceProvider.GetService<GuildRepository>();
         }
 
         public async Task InitialiseAsync()
         {
             if (Guild != null)
             {
-                DbGuild = await _guildRepo.GetGuildAsync(Guild.Id);
-                DbUser = await _userRepo.GetUserAsync(GuildUser.Id, GuildUser.GuildId);
+                DbGuild = await _dbGuilds.GetGuildAsync(Guild.Id);
+                DbUser = await _dbUsers.GetUserAsync(GuildUser.Id, GuildUser.GuildId);
             }
         }
 
@@ -55,9 +56,9 @@ namespace CoupBot.Common
         public async Task<IUserMessage> DmAsync(string text, IUser user = null)
         {
             user ??= User; // if the user parameter is null, user becomes the user who ran the command
-                
+
             var userDm = await user.GetOrCreateDMChannelAsync(); // open the DM with them
-            
+
             try
             {
                 await userDm.SendMessageAsync(text);
@@ -69,7 +70,8 @@ namespace CoupBot.Common
             }
             catch // catch exception where the user's privacy settings block messages from bots
             {
-                return await ReplyAsync("please go into User Settings > Privacy & Safety > Allow direct messages from server members (apply to all members).");
+                return await ReplyAsync(
+                    "please go into User Settings > Privacy & Safety > Allow direct messages from server members (apply to all members).");
             }
 
             return null;

@@ -35,7 +35,7 @@ namespace CoupBot
                 Console.WriteLine("The credentials file is missing data!");
                 return;
             }
-            
+
             var client = new DiscordSocketClient();
             var commandService = new CommandService(new CommandServiceConfig()
             {

@@ -19,8 +19,9 @@ namespace CoupBot.Events
         private async Task HandleReadyAsync()
         {
             await _client.SetGameAsync(Configuration.Game);
-            
-            Console.WriteLine($"{_client.CurrentUser.Username}#{_client.CurrentUser.Discriminator} ({_client.CurrentUser.Id}) v{Configuration.Version} has connected to Discord.");
+
+            Console.WriteLine(
+                $"{_client.CurrentUser.Username}#{_client.CurrentUser.Discriminator} ({_client.CurrentUser.Id}) v{Configuration.Version} has connected to Discord.");
         }
     }
 }

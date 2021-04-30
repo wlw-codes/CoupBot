@@ -5,16 +5,8 @@ using CoupBot.Common.Structures;
 
 namespace CoupBot.Database.Models
 {
-    public class Guild : Model
+    public class Guild : Entity
     {
-        public Guild(ulong guildId)
-        {
-            GuildId = guildId;
-        }
-
-        // Numerical
-        public ulong GuildId { get; set; }
-
         // Text
         public string Prefix { get; set; } = Configuration.Prefix;
 
