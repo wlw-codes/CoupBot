@@ -1,12 +1,14 @@
 using System.Linq;
 using System.Threading.Tasks;
+using CoupBot.Common.Structures;
+using CoupBot.Database.Models;
 using Discord;
 
 namespace CoupBot.Common.Extensions.Discord
 {
     public static class GuildExtensions
     {
-        public static async Task<int> GetMessageCount(this IGuild guild)
+        public static async Task<int> GetMessageCountAsync(this IGuild guild)
         {
             var count = 0;
 

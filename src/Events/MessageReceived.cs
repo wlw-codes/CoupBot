@@ -49,7 +49,13 @@ namespace CoupBot.Events
 
             var result = await _commandService.ExecuteAsync(context, argPos, _serviceProvider);
 
-            //if (!result.IsSuccess) await _errorHandler.HandleCommandErrorAsync(result, context); // error handling to be implemented
+            if (!result.IsSuccess)
+            {
+                if (result.Error == CommandError.UnmetPrecondition)
+                {
+                    await context.ReplyAsync(result.ErrorReason);
+                }
+            }
         }
     }
 }

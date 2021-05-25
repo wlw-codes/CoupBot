@@ -66,7 +66,7 @@ namespace CoupBot.Modules.Coups
                 return;
             }
 
-            var totalMessages = await Context.Guild.GetMessageCount();
+            var totalMessages = await Context.Guild.GetMessageCountAsync();
 
             await _dbGuilds.UpsertGuildAsync(Context.DbGuild.GuildId, x => x.Coups.Add(new Coup
             {
